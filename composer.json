@@ -1,15 +1,6 @@
 {
-    "name": "vladsmac/extole2",
-    "autoload": {
-        "psr-4": {
-            "Vladsmac\\Extole2\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "vl4d09",
-            "email": "ungureanu.vlad19@gmail.com"
-        }
-    ],
-    "require": {}
+    "require": {
+        "setasign/fpdi": "^2.6",
+        "setasign/fpdi-fpdf": "^2.3"
+    }
 }

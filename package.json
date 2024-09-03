@@ -1,22 +1,16 @@
 {
-  "name": "extole2",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "npx tailwindcss -i ./src/styles/tailwind.css -o ./dist/tailwind.css",
-    "watch:css": "npx tailwindcss -i ./src/styles/tailwind.css -o ./dist/tailwind.css --watch"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.44",
-    "tailwindcss": "^3.4.10"
-  },
-  "devDependencies": {
-    "daisyui": "^4.12.10"
+    "name": "my-project",
+    "version": "1.0.0",
+    "scripts": {
+      "dev": "vite",
+      "build": "vite build",
+      "preview": "vite preview"
+    },
+    "dependencies": {
+      "tailwindcss": "^3.3.0",
+      "postcss": "^8.4.18",
+      "autoprefixer": "^10.4.14",
+      "vite": "^4.0.0"  
+    }
   }
-}
+  
