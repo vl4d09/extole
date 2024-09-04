@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col h-full">
+  <div class="flex flex-col h-full bg-gray-100 dark:bg-gray-900 max-w-4xl mx-auto shadow-lg rounded-lg">
     <!-- Chat Window -->
-    <div ref="chatWindow" class="flex-grow p-6 overflow-y-auto space-y-4">
+    <div ref="chatWindow" class="flex-grow p-6 overflow-y-auto space-y-4 text-black dark:text-white">
       <div v-for="(message, index) in messages" :key="index" :class="message.isUser ? 'text-right' : 'text-left'">
         <div
           :class="[
@@ -27,13 +27,13 @@
     </div>
 
     <!-- Input Area -->
-    <div class="p-4 bg-white dark:bg-gray-800 border-t dark:border-gray-700 flex items-center">
+    <div class="flex p-4 bg-white dark:bg-gray-800 border-t dark:border-gray-700 items-center">
       <input
         v-model="newMessage"
         @keyup.enter="sendMessage"
         type="text"
         placeholder="Type a message..."
-        class="flex-grow px-4 py-2 mr-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-gray-400"
+        class="flex-grow px-4 py-2 mr-2 border rounded-lg text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-gray-400"
       />
       <input
         ref="fileInput"
@@ -109,10 +109,8 @@ export default {
     },
     scrollToBottom() {
       this.$nextTick(() => {
-        setTimeout(() => {
-          const chatWindow = this.$refs.chatWindow;
-          chatWindow.scrollTop = chatWindow.scrollHeight;
-        }, 100); // Increased timeout to ensure layout is fully updated
+        const chatWindow = this.$refs.chatWindow;
+        chatWindow.scrollTop = chatWindow.scrollHeight;
       });
     }
   },
@@ -120,5 +118,5 @@ export default {
 </script>
 
 <style scoped>
-/* Additional styles can be added here */
+/* Keep the styles as minimal as needed */
 </style>
