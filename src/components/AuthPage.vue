@@ -1,7 +1,14 @@
 <template>
   <div :class="{ 'dark': isDarkMode }" class="min-h-screen flex flex-col justify-center items-center bg-gray-100 dark:bg-gray-900">
-    <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">Authentication</h1>
-    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-96">
+    <!-- Logo Section -->
+    <div class="absolute top-4 left-4">
+      <img src="@/assets/logo.png" alt="Logo" class="h-20" />
+    </div>
+    
+    <!-- Authentication Content -->
+    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-96 mt-16">
+      <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100 text-center">Authentication</h1>
+      
       <div class="mb-4">
         <label class="block text-gray-700 dark:text-gray-300">Email</label>
         <input 
