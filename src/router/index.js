@@ -1,23 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import App from '../components/Dashboard.vue';
-import AuthPage from '../components/AuthPage.vue';
+import Dashboard from '../components/Dashboard.vue'; // Main component for authenticated users
+import AuthPage from '../components/AuthPage.vue'; // Authentication component
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: App
+    redirect: '/auth', // Redirect root path to /auth
   },
   {
     path: '/auth',
     name: 'Auth',
-    component: AuthPage
-  }
+    component: AuthPage,
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Dashboard,
+  },
+  // Add other routes as needed
 ];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 });
 
 export default router;

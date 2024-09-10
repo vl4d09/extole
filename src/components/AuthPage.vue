@@ -38,11 +38,11 @@ export default {
   methods: {
     logIn() {
       alert('Logged In (hardcoded)');
-      this.$router.push('/');
+      this.$router.push('/home'); // Navigate to /home after login
     },
     signUp() {
       alert('Signed Up (hardcoded)');
-      this.$router.push('/');
+      this.$router.push('/home'); // Navigate to /home after sign up
     }
   }
 }

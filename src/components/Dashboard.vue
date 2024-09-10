@@ -62,7 +62,7 @@
     <!-- Footer -->
     <footer v-if="!isAuthPage" class="bg-gray-200 dark:bg-gray-800 p-4 text-center">
       <p class="text-sm text-gray-600 dark:text-gray-400">
-         © {{ new Date().getFullYear() }} Extole. All rights reserved.
+          © {{ new Date().getFullYear() }} Extole. All rights reserved.
       </p>
     </footer>
   </div>
