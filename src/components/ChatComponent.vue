@@ -1,58 +1,39 @@
 <template>
-  <div class="flex flex-col h-full bg-gray-100 dark:bg-gray-900 max-w-4xl mx-auto shadow-lg rounded-lg">
-    <!-- Chat Window -->
-    <div ref="chatWindow" class="flex-grow p-6 overflow-y-auto space-y-4 text-black dark:text-white">
-      <div v-for="(message, index) in messages" :key="index" :class="message.isUser ? 'text-right' : 'text-left'">
-        <div
-          :class="[
-            'inline-block px-4 py-2 rounded-lg',
-            message.isUser ? 'bg-blue-500 dark:bg-blue-600 text-white' : 'bg-gray-300 dark:bg-gray-700 dark:text-gray-300',
-          ]"
-        >
-          <p v-if="message.text">{{ message.text }}</p>
-          
-          <div v-if="isImageFile(message.fileName)" class="mt-2">
-            <img :src="message.file" alt="Uploaded Image" class="max-w-full h-auto rounded-lg shadow-md"/>
-          </div>
-
-          <div v-if="isPdfFile(message.fileName)" class="mt-2">
-            <embed :src="message.file" width="100%" height="400px" type="application/pdf" />
-          </div>
-          
-          <div v-if="!isImageFile(message.fileName) && !isPdfFile(message.fileName)" class="mt-2">
-            <a :href="message.file" class="text-blue-700 dark:text-blue-400 underline" download>{{ message.fileName }}</a>
+  <div class="flex flex-col h-full">
+    <!-- Chat Messages -->
+    <div class="flex-1 flex flex-col bg-gray-100 dark:bg-gray-900">
+      <div class="flex-1 overflow-y-auto p-4">
+        <div v-for="(message, index) in messages" :key="index"
+             class="mb-4" :class="{'text-right': message.sender === 'user'}">
+          <div class="inline-block p-2 rounded-lg"
+               :class="message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black dark:bg-gray-700 dark:text-white'">
+            {{ message.content }}
+            <div v-if="message.file" class="mt-2 text-sm">
+              <span class="font-bold">Attached file:</span> {{ message.file.name }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Input Area -->
-    <div class="flex p-4 bg-white dark:bg-gray-800 border-t dark:border-gray-700 items-center">
-      <input
-        v-model="newMessage"
-        @keyup.enter="sendMessage"
-        type="text"
-        placeholder="Type a message..."
-        class="flex-grow px-4 py-2 mr-2 border rounded-lg text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-gray-400"
-      />
-      <input
-        ref="fileInput"
-        type="file"
-        @change="handleFileUpload"
-        class="hidden"
-      />
-      <button
-        @click="sendMessage"
-        class="px-4 py-2 mr-2 text-white bg-blue-500 dark:bg-blue-600 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-      >
-        Send
-      </button>
-      <button
-        @click="$refs.fileInput.click()"
-        class="px-4 py-2 text-white bg-gray-500 dark:bg-gray-600 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400"
-      >
-        Upload File
-      </button>
+      <!-- Input Area -->
+      <div class="p-4 border-t border-gray-300 dark:border-gray-700">
+        <div class="flex">
+          <input v-model="newMessage" @keyup.enter="sendMessage"
+                 class="flex-1 border rounded-l-lg p-2 bg-white text-black dark:bg-gray-800 dark:text-white"
+                 placeholder="Type a message...">
+          <label for="file-upload" class="cursor-pointer bg-gray-300 hover:bg-gray-400 text-black dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white px-4 py-2 flex items-center justify-center">
+            📎
+          </label>
+          <input id="file-upload" type="file" @change="handleFileUpload" class="hidden" accept=".pdf,.doc,.docx,.txt">
+          <button @click="sendMessage"
+                  class="bg-blue-500 text-white px-4 py-2 rounded-r-lg">
+            Send
+          </button>
+        </div>
+        <div v-if="selectedFile" class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          Selected file: {{ selectedFile.name }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -62,61 +43,46 @@ export default {
   data() {
     return {
       messages: [
-        { text: 'Hello! How can I help you today?', isUser: false },
+        { sender: 'bot', content: 'Hello! How can I help you today?' },
+        { sender: 'user', content: 'I have a question about Vue.js' },
+        { sender: 'bot', content: 'Sure, I\'d be happy to help with Vue.js. What would you like to know?' }
       ],
       newMessage: '',
-      file: null,
+      selectedFile: null
     };
-  },
-  mounted() {
-    this.scrollToBottom();
-  },
-  updated() {
-    this.scrollToBottom();
   },
   methods: {
     sendMessage() {
-      if (this.newMessage.trim()) {
-        this.messages.push({ text: this.newMessage, isUser: true });
+      if (this.newMessage.trim() || this.selectedFile) {
+        const message = {
+          sender: 'user',
+          content: this.newMessage.trim(),
+          file: this.selectedFile
+        };
+        this.messages.push(message);
         this.newMessage = '';
-
-        // Simulate a hardcoded response
-        setTimeout(() => {
-          this.messages.push({ text: 'This is a hardcoded response.', isUser: false });
-        }, 1000);
+        this.selectedFile = null;
+        this.getBotResponse();
       }
-
-      if (this.file) {
-        const fileName = this.file.name;
-        const fileUrl = URL.createObjectURL(this.file);
+    },
+    getBotResponse() {
+      setTimeout(() => {
         this.messages.push({
-          text: '',
-          isUser: true,
-          file: fileUrl,
-          fileName: fileName,
+          sender: 'bot',
+          content: 'I\'ve received your message. If you uploaded a file, I would process it here.'
         });
-        this.file = null;
-      }
+      }, 1000);
     },
     handleFileUpload(event) {
-      this.file = event.target.files[0];
-    },
-    isPdfFile(fileName) {
-      return fileName?.toLowerCase().endsWith('.pdf');
-    },
-    isImageFile(fileName) {
-      return /\.(jpg|jpeg|png|gif)$/.test(fileName?.toLowerCase());
-    },
-    scrollToBottom() {
-      this.$nextTick(() => {
-        const chatWindow = this.$refs.chatWindow;
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-      });
+      const file = event.target.files[0];
+      if (file) {
+        this.selectedFile = file;
+      }
     }
-  },
+  }
 };
 </script>
 
 <style scoped>
-/* Keep the styles as minimal as needed */
+/* Additional custom styles, if needed */
 </style>
