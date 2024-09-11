@@ -1,29 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class', // Enable class-based dark mode
   content: [
-    "./*.php",
-    "./src/**/*.{html,js}",
+    './src/**/*.{vue,js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {},
   },
   plugins: [require('daisyui'),],
-  daisyui: {
-    themes: [
-      {
-        mytheme: {
-          "primary": "#3d4451",
-          "secondary": "#f5f5f4",
-          "accent": "#37cdbe",
-          "neutral": "#dc2626",
-          "base-100": "#ffffff",
-        },
-      },
-      "light",
-      "dark",
-      "cupcake",
-    ],
-  },
-}
-
-
+};
