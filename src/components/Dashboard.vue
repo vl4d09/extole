@@ -7,8 +7,10 @@
     >
       <div class="flex items-center justify-between">
         <!-- Logo on the left (conditional based on dark mode) -->
-        <img :src="darkLogo" alt="Logo" class="h-16" />
-
+         <div class="flex flex-row items-center">
+        <img src="../assets/logo.png" alt="logo" class="h-16" />
+        <img src="../assets/logo1-1.png" alt="logo" class="h-8 dark:invert"  />
+      </div>
         <!-- Dark Mode Toggle and Authentication Button -->
         <div class="flex items-center space-x-4">
           <!-- Light/Dark Mode Toggle -->
@@ -97,11 +99,7 @@ export default {
     };
   },
   computed: {
-    darkLogo() {
-      return this.isDarkMode
-        ? require("@/assets/logo.png")
-        : require("@/assets/logo1.png");
-    },
+
     isAuthPage() {
       return this.$route.path === "/auth";
     },
