@@ -7,10 +7,10 @@
     >
       <div class="flex items-center justify-between">
         <!-- Logo on the left (conditional based on dark mode) -->
-         <div class="flex flex-row items-center">
-        <img src="../assets/logo.png" alt="logo" class="h-16" />
-        <img src="../assets/logo1-1.png" alt="logo" class="h-8 dark:invert"  />
-      </div>
+        <div class="flex flex-row items-center">
+          <img src="../assets/logo.png" alt="logo" class="h-16" />
+          <img src="../assets/logo1-1.png" alt="logo" class="h-8 dark:invert" />
+        </div>
         <!-- Dark Mode Toggle and Authentication Button -->
         <div class="flex items-center space-x-4">
           <!-- Light/Dark Mode Toggle -->
@@ -35,7 +35,6 @@
               </span>
             </label>
           </div>
-
           <!-- Authentication Button -->
           <button
             @click="goToAuth"
@@ -53,12 +52,17 @@
       <div
         class="w-1/10 bg-gray-200 text-black dark:bg-gray-800 dark:text-white p-4"
       >
-        <h2 class="text-xl font-bold mb-4">Left Menu</h2>
-        <ul>
-          <li class="mb-2">Button 1</li>
-          <li class="mb-2">Button 2</li>
-          <li class="mb-2">Button 3</li>
-        </ul>
+        <div class="flex flex-col items-start mb-10"> 
+          <div class="flex flex-row items-center mb-6"> 
+            <img src="../assets/clients.png" alt="clients" class="h-12 dark:invert" /> 
+            <h1 class="text-xl font-bold">Clients</h1>
+          </div>
+          <ul>
+            <li class="mb-5">Button 1</li>
+            <li class="mb-5">Button 2</li>
+            <li class="mb-5">Button 3</li>
+          </ul>
+        </div>
       </div>
 
       <!-- Center (empty for now) -->
@@ -66,7 +70,7 @@
 
       <!-- Right Menu (Chat Area) -->
       <div
-        class="w-1/4 bg-gray-200 text-black dark:bg-gray-800 dark:text-white p-4"
+        class="w-1/4 bg-gray-200 text-black dark:bg-gray-800 dark:text-white p-2"
       >
         <ChatComponent />
       </div>
@@ -99,7 +103,6 @@ export default {
     };
   },
   computed: {
-
     isAuthPage() {
       return this.$route.path === "/auth";
     },

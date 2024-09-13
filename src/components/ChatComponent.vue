@@ -4,7 +4,16 @@
     <div class="flex-1 flex flex-col bg-gray-100 dark:bg-gray-900">
       <div class="flex-1 overflow-y-auto p-4">
         <div v-for="(message, index) in messages" :key="index"
-             class="mb-4" :class="{'text-right': message.sender === 'user'}">
+             class="flex items-start mb-4"
+             :class="{'justify-end': message.sender === 'user', 'justify-start': message.sender === 'bot'}">
+          <div v-if="message.sender === 'bot'" class="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center mr-2">
+            <!-- Bot Icon -->
+            🤖
+          </div>
+          <div v-if="message.sender === 'user'" class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center ml-2 mr-1">
+            <!-- User Icon -->
+            👤
+          </div>
           <div class="inline-block p-2 rounded-lg"
                :class="message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black dark:bg-gray-700 dark:text-white'">
             {{ message.content }}
@@ -84,5 +93,5 @@ export default {
 </script>
 
 <style scoped>
-/* Additional custom styles, if needed */
+/* Additional custom styles */
 </style>
