@@ -6,7 +6,7 @@
         <div v-for="(message, index) in messages" :key="index"
              class="flex items-start mb-4"
              :class="{'justify-end': message.sender === 'user', 'justify-start': message.sender === 'bot'}">
-          <div v-if="message.sender === 'bot'" class="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center mr-2">
+          <div v-if="message.sender === 'bot'" class="w-6 h-6 bg-gray-300 dark:bg-gray-600 rounded-md flex items-center justify-center mr-2">
             <!-- Bot Icon -->
             🤖
           </div>
