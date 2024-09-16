@@ -1,19 +1,15 @@
 <template>
   <div :class="{ dark: isDarkMode }" class="flex flex-col h-screen">
     <!-- Conditionally Render Header and Footer -->
-    <header
-      v-if="!isAuthPage"
-      class="bg-white dark:bg-gray-800 shadow-md p-4 relative"
-    >
+    <header v-if="!isAuthPage" class="bg-white dark:bg-gray-800 shadow-md p-4">
       <div class="flex items-center justify-between">
         <!-- Logo on the left (conditional based on dark mode) -->
-         <div class="flex flex-row items-center">
-        <img src="../assets/logo.png" alt="logo" class="h-16" />
-        <img src="../assets/logo1-1.png" alt="logo" class="h-8 dark:invert"  />
-      </div>
+        <div class="flex flex-row items-center">
+          <img src="../assets/logo.png" alt="logo" class="h-16" />
+          <img src="../assets/logo1-1.png" alt="logo" class="h-8 dark:invert" />
+        </div>
         <!-- Dark Mode Toggle and Authentication Button -->
         <div class="flex items-center space-x-4">
-          <!-- Light/Dark Mode Toggle -->
           <div>
             <label class="inline-flex items-center cursor-pointer">
               <span class="mr-2 text-gray-900 dark:text-gray-100">{{
@@ -35,8 +31,6 @@
               </span>
             </label>
           </div>
-
-          <!-- Authentication Button -->
           <button
             @click="goToAuth"
             class="px-4 py-2 bg-red-500 text-white rounded-lg"
@@ -48,26 +42,29 @@
     </header>
 
     <!-- Main Layout -->
-    <div v-if="!isAuthPage" class="flex flex-1">
+    <div v-if="!isAuthPage" class="flex flex-1 h-0">
       <!-- Left Menu -->
-      <div
-        class="w-1/10 bg-gray-200 text-black dark:bg-gray-800 dark:text-white p-4"
-      >
-        <h2 class="text-xl font-bold mb-4">Left Menu</h2>
-        <ul>
-          <li class="mb-2">Button 1</li>
-          <li class="mb-2">Button 2</li>
-          <li class="mb-2">Button 3</li>
-        </ul>
+      <div class="w-1/10 bg-gray-200 text-black dark:bg-gray-800 dark:text-white p-4 overflow-y-auto">
+        <div class="flex flex-col items-start mb-10"> 
+          <div class="flex flex-row items-center mb-6"> 
+            <img src="../assets/clients.png" alt="clients" class="h-12 dark:invert" /> 
+            <h1 class="text-xl font-bold">Clients</h1>
+          </div>
+          <ul>
+            <li class="mb-5">Button 1</li>
+            <li class="mb-5">Button 2</li>
+            <li class="mb-5">Button 3</li>
+          </ul>
+        </div>
       </div>
 
       <!-- Center (empty for now) -->
-      <div class="flex-1 bg-gray-100 dark:bg-gray-900"></div>
+      <div class="flex-1 bg-gray-100 dark:bg-gray-900 overflow-y-auto">
+        <!-- Center content can be added here later -->
+      </div>
 
       <!-- Right Menu (Chat Area) -->
-      <div
-        class="w-1/4 bg-gray-200 text-black dark:bg-gray-800 dark:text-white p-4"
-      >
+      <div class="w-1/4 bg-gray-200 text-black dark:bg-gray-800 dark:text-white p-2 overflow-y-auto">
         <ChatComponent />
       </div>
     </div>
@@ -99,7 +96,6 @@ export default {
     };
   },
   computed: {
-
     isAuthPage() {
       return this.$route.path === "/auth";
     },
